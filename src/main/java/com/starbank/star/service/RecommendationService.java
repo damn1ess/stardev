@@ -86,7 +86,7 @@ public class RecommendationService {
             case "<=":
                 return transactionSum.compareTo(threshold) <= 0;
             default:
-                throw new IllegalArgumentException("Wrong argument: " + comparisonOperator);
+                throw new IllegalArgumentException("Wrong argument: " + comparisonOperator); // Выбрасываем ошибку в случае ввода неправильного аргумента
         }
     }
 
@@ -109,10 +109,10 @@ public class RecommendationService {
             case "<=":
                 return depositSum.compareTo(withdrawSum) <= 0;
             default:
-                throw new IllegalArgumentException("Wrong argument: " + comparisonOperator);
+                throw new IllegalArgumentException("Wrong argument: " + comparisonOperator); // Выбрасываем ошибку в случае ввода неправильного аргумента
         }
     }
-
+    // Методы получения суммы произведенных транзакций
     private BigDecimal getTransactionSum(UUID userId, String accountType) {
         String sql = "SELECT SUM(amount) FROM transactions WHERE user_id = ? AND product_type = ? GROUP BY user_id";
         return jdbcTemplate.queryForObject(sql, new Object[]{userId, accountType}, BigDecimal.class);
